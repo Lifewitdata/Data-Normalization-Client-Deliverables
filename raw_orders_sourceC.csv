@@ -1,0 +1,4 @@
+TransactionID,ClientName,TxnDate,ValueUSD,EmailAddress
+T301,Lois Lane,05.07.2023,500.00,lois@news.com
+T302,Barry Allen,2023/08/15,600.5,barry@fastmail.com 
+T303,Hal Jordan,09-09-23,Seven Hundred,hal.jordan@corp
