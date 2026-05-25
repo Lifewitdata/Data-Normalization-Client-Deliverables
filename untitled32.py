@@ -28,14 +28,6 @@ df3_clean = pd.DataFrame()
 df3_clean["OrderID"] = df3["TransactionID"]
 df3_clean["CustomerName"] = df3["ClientName"].str.title().str.strip()
 df3_clean["OrderDate"] = pd.to_datetime(df3["TxnDate"], errors="coerce", dayfirst=False)
-df3_clean["AmountUSD"] = pd.to_numeric(df3["ValueUSD"], errors="coerce")
-df3_clean["Email"] = df3["EmailAddress"].str.strip().str.lower()
-
-df3_clean = pd.DataFrame()
-df3_clean["OrderID"] = df3["TransactionID"]
-df3_clean["CustomerName"] = df3["ClientName"].str.title().str.strip()
-df3_clean["OrderDate"] = pd.to_datetime(df3["TxnDate"], errors="coerce", dayfirst=False)
-
 df3_clean["AmountUSD"] = pd.to_numeric(df3["ValueUSD"].str.replace(",", ""), errors="coerce")
 df3_clean["Email"] = df3["EmailAddress"].str.strip().str.lower()
 
@@ -97,7 +89,7 @@ invalid_email_count = len(invalid_emails)
 # Check for non-numeric in df3['ValueUSD'] after comma removal but before to_numeric
 # This is a simplification; a more robust check would involve examining the original raw data before any cleaning
 # However, based on the cleaning code, the primary issue was the "Seven Hundred" entry in df3
-failed_amount_conversions_count = normalized_df['AmountUSD'].isnull().sum() - normalized_df['AmountUSD'].dropna().size
+failed_amount_conversions_count = normalized_df['AmountUSD'].isnull().sum()
 
 
 # Generate Markdown Table
@@ -197,10 +189,10 @@ Dear Client,
 Please find the normalized order dataset attached/available.
 
 **Transformations Applied:**
-Data from Sources A, B, and C has been combined. Key fields (OrderID, CustomerName, OrderDate, AmountUSD, Email) were standardized: names title-cased, emails lowercased, whitespace trimmed, dates converted to datetime, and amounts to numeric, handling conversion errors.
+Data from Sources A, B, and C has been combined. Key fields (OrderID, CustomerName, OrderDate, AmountUSD, Email) were standardized: names title-cased, emails lowercased, whitespace trimmed, dates conv[...]
 
 **Key Quality Control Findings:**
-Initial data showed missing Order Dates and AmountUSD values, along with some inconsistent email formats. Rows with missing values were removed to ensure data integrity in the delivered dataset. A detailed QC report and data dictionary are provided for your reference.
+Initial data showed missing Order Dates and AmountUSD values, along with some inconsistent email formats. Rows with missing values were removed to ensure data integrity in the delivered dataset. A det[...]
 
 **Client Readiness:**
 The `normalized_df_cleaned` dataset has undergone essential cleaning and validation steps. It is now client-ready for your analysis.
@@ -254,4 +246,3 @@ markdown_table = billable_hours_df.to_markdown(index=False)
 markdown_output = "## Billable Hours Log\n\n" + markdown_table
 
 display(markdown_output)
-
